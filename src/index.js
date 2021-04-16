@@ -9,14 +9,35 @@ var cy = cytoscape({
 
     elements: [ // list of graph elements to start with
         { // node a
-            "data": { "id": 'a' }
+            "data": { "id": 'a', "label": "aLabel" }
         },
         { // node b
             "data": { "id": 'b' }
         },
         { // edge ab
             "data": { "id": 'ab', "source": 'a', "target": 'b' }
-        }
+        },
+        { // node c
+            "data": { "id": 'c' }
+        },
+        { // node d
+            "data": { "id": 'd' }
+        },
+        { // edge ab
+            "data": { "id": 'cd', "source": 'c', "target": 'd' }
+        },
+        { // node e
+            "data": { "id": 'e' }
+        },
+        { // node f
+            "data": { "id": 'f' }
+        },
+        { // edge ab
+            "data": { "id": 'ce', "source": 'c', "target": 'e' }
+        },
+        { // node g
+            "data": { "id": 'g' }
+        },
     ],
 
     style: [ // the stylesheet for the graph
@@ -24,7 +45,7 @@ var cy = cytoscape({
             selector: 'node',
             style: {
                 'background-color': '#666',
-                'label': 'data(id)'
+                'label': 'data(label)'
             }
         },
 
@@ -32,9 +53,14 @@ var cy = cytoscape({
             selector: 'edge',
             style: {
                 'width': 3,
+                // 화살표 style 변경
+                'curve-style': 'bezier',
                 'line-color': '#ccc',
-                'target-arrow-color': '#ccc',
-                'target-arrow-shape': 'triangle'
+                //'target-arrow-color': '#ccc',
+                //'target-arrow-shape': 'triangle',
+                // 화살표 방향 
+                'source-arrow-color': '#ccc',
+                'source-arrow-shape': 'triangle',
             }
         }
     ],

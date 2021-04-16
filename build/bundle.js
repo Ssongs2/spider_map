@@ -19,7 +19,8 @@ var cy = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
   {
     // node a
     "data": {
-      "id": 'a'
+      "id": 'a',
+      "label": "aLabel"
     }
   }, {
     // node b
@@ -33,21 +34,65 @@ var cy = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
       "source": 'a',
       "target": 'b'
     }
+  }, {
+    // node c
+    "data": {
+      "id": 'c'
+    }
+  }, {
+    // node d
+    "data": {
+      "id": 'd'
+    }
+  }, {
+    // edge ab
+    "data": {
+      "id": 'cd',
+      "source": 'c',
+      "target": 'd'
+    }
+  }, {
+    // node e
+    "data": {
+      "id": 'e'
+    }
+  }, {
+    // node f
+    "data": {
+      "id": 'f'
+    }
+  }, {
+    // edge ab
+    "data": {
+      "id": 'ce',
+      "source": 'c',
+      "target": 'e'
+    }
+  }, {
+    // node g
+    "data": {
+      "id": 'g'
+    }
   }],
   style: [// the stylesheet for the graph
   {
     selector: 'node',
     style: {
       'background-color': '#666',
-      'label': 'data(id)'
+      'label': 'data(label)'
     }
   }, {
     selector: 'edge',
     style: {
       'width': 3,
+      // 화살표 style 변경
+      'curve-style': 'bezier',
       'line-color': '#ccc',
-      'target-arrow-color': '#ccc',
-      'target-arrow-shape': 'triangle'
+      //'target-arrow-color': '#ccc',
+      //'target-arrow-shape': 'triangle',
+      // 화살표 방향 
+      'source-arrow-color': '#ccc',
+      'source-arrow-shape': 'triangle'
     }
   }],
   layout: {
@@ -3485,7 +3530,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1618485475040
+      // 1618562385518
       var cssReload = __webpack_require__(6)(module.id, {"locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -3788,7 +3833,7 @@ module.exports = function (urlString) {
   let options;
 
   try {
-    options = {"compress":null,"headers":null,"historyFallback":false,"hmr":true,"host":null,"liveReload":false,"log":{"level":"info","prefix":{"template":"{{level}}"},"name":"webpack-plugin-serve"},"open":false,"port":55555,"progress":true,"ramdisk":false,"secure":false,"static":["/Users/ssongs2/git/map"],"status":true,"address":"[::]:55555","compilerName":null,"wpsId":"a618517"};
+    options = {"compress":null,"headers":null,"historyFallback":false,"hmr":true,"host":null,"liveReload":false,"log":{"level":"info","prefix":{"template":"{{level}}"},"name":"webpack-plugin-serve"},"open":false,"port":55555,"progress":true,"ramdisk":false,"secure":false,"static":["/Users/ssongs2/map"],"status":true,"address":"[::]:55555","compilerName":null,"wpsId":"4f09187"};
   } catch (e) {
     const {
       log
@@ -5045,7 +5090,7 @@ module.exports = {
 /******/ 		// This function allow to reference all chunks
 /******/ 		__webpack_require__.hu = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "a618517-" + chunkId + "-wps-hmr.js";
+/******/ 			return "4f09187-" + chunkId + "-wps-hmr.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -5060,12 +5105,12 @@ module.exports = {
 /******/ 	
 /******/ 	/* webpack/runtime/get update manifest filename */
 /******/ 	(() => {
-/******/ 		__webpack_require__.hmrF = () => ("main-a618517-wps-hmr.json");
+/******/ 		__webpack_require__.hmrF = () => ("main-4f09187-wps-hmr.json");
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("3f6c388bb0b5408ea735")
+/******/ 		__webpack_require__.h = () => ("88d6f141eebe4ea7b6b2")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
