@@ -1,0 +1,27 @@
+[{ 
+    "data": { "id": "a", "url": "https://www.google.com" ,"label": "aLabel" }
+},
+{ 
+    "data": { "id": "b", "label": "bLabel" }
+},
+{ 
+    "data": { "id": "ab", "source": "b", "target": "a" }
+},
+{ 
+    "data": { "id": "c", "label": "cLabel" }
+},
+{ 
+    "data": { "id": "d" }
+},
+{ 
+    "data": { "id": "cd", "source": "c", "target": "a" }
+},
+{ 
+    "data": { "id": "e" }
+},
+{ 
+    "data": { "id": "f" }
+},
+{ 
+    "data": { "id": "ce", "source": "e", "target": "f" }
+},]
