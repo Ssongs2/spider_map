@@ -7,237 +7,194 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cytoscape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var cytoscape__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cytoscape__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _favicon_ico__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _model_data_json__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
 
 
- // webpack으로 묶어줘야 하니 css파일을 진입점인 index.js 에 import 합니다
 
-cytoscape__WEBPACK_IMPORTED_MODULE_0___default().use((cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1___default()));
-var data = [{
-  // node a
-  "data": {
-    "id": 'a',
-    url: 'https://www.google.com',
-    "label": "aLabel"
-  }
-}, {
-  // node b
-  "data": {
-    "id": 'b',
-    "label": "bLabel"
-  }
-}, {
-  // edge ab
-  "data": {
-    "id": 'ab',
-    "source": 'b',
-    "target": 'a'
-  }
-}, {
-  // node c
-  "data": {
-    "id": 'c',
-    "label": "cLabel"
-  }
-}, {
-  // node d
-  "data": {
-    "id": 'd'
-  }
-}, {
-  // edge ab
-  "data": {
-    "id": 'cd',
-    "source": 'c',
-    "target": 'a'
-  }
-}, {
-  // node e
-  "data": {
-    "id": 'e'
-  }
-}, {
-  // node f
-  "data": {
-    "id": 'f'
-  }
-}, {
-  // edge ab
-  "data": {
-    "id": 'ce',
-    "source": 'e',
-    "target": 'f'
-  }
-}];
-var cy_for_rank = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
-  elements: data
-});
-var pageRank = cy_for_rank.elements().pageRank(); /// style 지정
+ // favicon build
 
-var nodeMaxSize = 50;
-var nodeMinSize = 5;
-var nodeActiveSize = 28;
-var fontMaxSize = 8;
-var fontMinSize = 5;
-var fontActiveSize = 7; // node & font 크기 값
+ // data build
+// webpack으로 묶어줘야 하니 css파일을 진입점인 index.js 에 import 합니다
 
-var edgeWidth = '2px';
-var edgeActiveWidth = '4px';
-var arrowScale = 0.8;
-var arrowActiveScale = 1.2; // edge & arrow 크기값
+fetch('./model/data.json', {
+  mode: 'no-cors'
+}).then(function (res) {
+  return res.json();
+}).then(function (data) {
+  cytoscape__WEBPACK_IMPORTED_MODULE_0___default().use((cytoscape_cose_bilkent__WEBPACK_IMPORTED_MODULE_1___default()));
+  var data2 = [];
+  var cy_for_rank = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
+    elements: data
+  });
+  var pageRank = cy_for_rank.elements().pageRank(); /// style 지정
 
-var dimColor = '#dfe4ea';
-var edgeColor = '#ced6e0';
-var nodeColor = '#57606f';
-var nodeActiveColor = '#ffa502';
-var successorColor = '#ff6348'; // 상위 node & edge color
+  var nodeMaxSize = 50;
+  var nodeMinSize = 5;
+  var nodeActiveSize = 28;
+  var fontMaxSize = 8;
+  var fontMinSize = 5;
+  var fontActiveSize = 7; // node & font 크기 값
 
-var predecessorsColor = '#1e90ff'; // 하위 node & edge color
-// 아래는 공식 사이트에 올라와 있는 예제 코드입니다
+  var edgeWidth = '2px';
+  var edgeActiveWidth = '4px';
+  var arrowScale = 0.8;
+  var arrowActiveScale = 1.2; // edge & arrow 크기값
 
-var cy = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
-  container: document.getElementById('cy'),
-  // container to render in
-  elements: data,
-  style: [// the stylesheet for the graph
-  {
-    selector: 'node',
-    style: {
-      'background-color': nodeColor,
-      'label': 'data(label)',
-      'width': function width(ele) {
-        return nodeMaxSize * pageRank.rank('#' + ele.id()) + nodeMinSize;
-      },
-      'height': function height(ele) {
-        return nodeMaxSize * pageRank.rank('#' + ele.id()) + nodeMinSize;
-      },
-      'font-size': function fontSize(ele) {
-        return fontMaxSize * pageRank.rank('#' + ele.id()) + fontMinSize;
-      },
-      'color': nodeColor
+  var dimColor = '#dfe4ea';
+  var edgeColor = '#ced6e0';
+  var nodeColor = '#57606f';
+  var nodeActiveColor = '#ffa502';
+  var successorColor = '#ff6348'; // 상위 node & edge color
+
+  var predecessorsColor = '#1e90ff'; // 하위 node & edge color
+  // 아래는 공식 사이트에 올라와 있는 예제 코드입니다
+
+  var cy = cytoscape__WEBPACK_IMPORTED_MODULE_0___default()({
+    container: document.getElementById('cy'),
+    // container to render in
+    elements: data,
+    style: [// the stylesheet for the graph
+    {
+      selector: 'node',
+      style: {
+        'background-color': nodeColor,
+        'label': 'data(label)',
+        'width': function width(ele) {
+          return nodeMaxSize * pageRank.rank('#' + ele.id()) + nodeMinSize;
+        },
+        'height': function height(ele) {
+          return nodeMaxSize * pageRank.rank('#' + ele.id()) + nodeMinSize;
+        },
+        'font-size': function fontSize(ele) {
+          return fontMaxSize * pageRank.rank('#' + ele.id()) + fontMinSize;
+        },
+        'color': nodeColor
+      }
+    }, {
+      selector: 'edge',
+      style: {
+        width: edgeWidth,
+        // 화살표 style 변경
+        'curve-style': 'bezier',
+        'line-color': edgeColor,
+        //'target-arrow-color': '#ccc',
+        //'target-arrow-shape': 'triangle',
+        // 화살표 방향 
+        'source-arrow-color': edgeColor,
+        'source-arrow-shape': 'vee',
+        'arrow-scale': arrowScale
+      }
+    }],
+    layout: {
+      name: 'cose-bilkent',
+      animate: false,
+      gravityRangeCompound: 1.5,
+      fit: true,
+      tile: true
     }
-  }, {
-    selector: 'edge',
-    style: {
-      width: edgeWidth,
-      // 화살표 style 변경
-      'curve-style': 'bezier',
-      'line-color': edgeColor,
-      //'target-arrow-color': '#ccc',
-      //'target-arrow-shape': 'triangle',
-      // 화살표 방향 
-      'source-arrow-color': edgeColor,
-      'source-arrow-shape': 'vee',
-      'arrow-scale': arrowScale
+  });
+  cy.on('tap', function (e) {
+    var url = e.target.data('url');
+
+    if (url && url != '') {
+      window.open(url);
     }
-  }],
-  layout: {
-    name: 'cose-bilkent',
-    animate: false,
-    gravityRangeCompound: 1.5,
-    fit: true,
-    tile: true
+  });
+  cy.on('tapstart mouseover', 'node', function (e) {
+    setDimStyle(cy, {
+      'background-color': dimColor,
+      'line-color': dimColor,
+      'source-arrow-color': dimColor,
+      'color': dimColor
+    });
+    setFocus(e.target, successorColor, predecessorsColor, edgeActiveWidth, arrowActiveScale);
+  });
+  cy.on('tapend mouseout', 'node', function (e) {
+    setResetFocus(e.cy);
+  }); // 추가되는 부분                                              
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    this.clearTimeout(resizeTimer);
+    resizeTimer = this.setTimeout(function () {
+      cy.fit();
+    }, 200);
+  });
+
+  function setDimStyle(target_cy, style) {
+    target_cy.nodes().forEach(function (target) {
+      target.style(style);
+    });
+    target_cy.edges().forEach(function (target) {
+      target.style(style);
+    });
+  }
+
+  function setFocus(target_element, successorColor, predecessorsColor, edgeWidth, arrowScale) {
+    target_element.style('background-color', nodeActiveColor);
+    target_element.style('color', nodeColor);
+    target_element.successors().each(function (e) {
+      // 상위  엣지와 노드
+      if (e.isEdge()) {
+        e.style('width', edgeWidth);
+        e.style('arrow-scale', arrowScale);
+      }
+
+      e.style('color', nodeColor);
+      e.style('background-color', successorColor);
+      e.style('line-color', successorColor);
+      e.style('source-arrow-color', successorColor);
+      setOpacityElement(e, 0.5);
+    });
+    target_element.predecessors().each(function (e) {
+      // 하위 엣지와 노드
+      if (e.isEdge()) {
+        e.style('width', edgeWidth);
+        e.style('arrow-scale', arrowScale);
+      }
+
+      e.style('color', nodeColor);
+      e.style('background-color', predecessorsColor);
+      e.style('line-color', predecessorsColor);
+      e.style('source-arrow-color', predecessorsColor);
+      setOpacityElement(e, 0.5);
+    });
+    target_element.neighborhood().each(function (e) {
+      // 이웃한 엣지와 노드
+      setOpacityElement(e, 1);
+    });
+    target_element.style('width', Math.max(parseFloat(target_element.style('width')), nodeActiveSize));
+    target_element.style('height', Math.max(parseFloat(target_element.style('height')), nodeActiveSize));
+    target_element.style('font-size', Math.max(parseFloat(target_element.style('font-size')), fontActiveSize));
+  }
+
+  function setOpacityElement(target_element, degree) {
+    target_element.style('opacity', degree);
+  }
+
+  function setResetFocus(target_cy) {
+    target_cy.nodes().forEach(function (target) {
+      target.style('background-color', nodeColor);
+      var rank = pageRank.rank(target);
+      target.style('width', nodeMaxSize * rank + nodeMinSize);
+      target.style('height', nodeMaxSize * rank + nodeMinSize);
+      target.style('font-size', fontMaxSize * rank + fontMinSize);
+      target.style('color', nodeColor);
+      target.style('opacity', 1);
+    });
+    target_cy.edges().forEach(function (target) {
+      target.style('line-color', edgeColor);
+      target.style('source-arrow-color', edgeColor);
+      target.style('width', edgeWidth);
+      target.style('arrow-scale', arrowScale);
+      target.style('opacity', 1);
+    });
   }
 });
-cy.on('tap', function (e) {
-  var url = e.target.data('url');
-
-  if (url && url != '') {
-    window.open(url);
-  }
-});
-cy.on('tapstart mouseover', 'node', function (e) {
-  setDimStyle(cy, {
-    'background-color': dimColor,
-    'line-color': dimColor,
-    'source-arrow-color': dimColor,
-    'color': dimColor
-  });
-  setFocus(e.target, successorColor, predecessorsColor, edgeActiveWidth, arrowActiveScale);
-});
-cy.on('tapend mouseout', 'node', function (e) {
-  setResetFocus(e.cy);
-}); // 추가되는 부분                                              
-
-var resizeTimer;
-window.addEventListener('resize', function () {
-  this.clearTimeout(resizeTimer);
-  resizeTimer = this.setTimeout(function () {
-    cy.fit();
-  }, 200);
-});
-
-function setDimStyle(target_cy, style) {
-  target_cy.nodes().forEach(function (target) {
-    target.style(style);
-  });
-  target_cy.edges().forEach(function (target) {
-    target.style(style);
-  });
-}
-
-function setFocus(target_element, successorColor, predecessorsColor, edgeWidth, arrowScale) {
-  target_element.style('background-color', nodeActiveColor);
-  target_element.style('color', nodeColor);
-  target_element.successors().each(function (e) {
-    // 상위  엣지와 노드
-    if (e.isEdge()) {
-      e.style('width', edgeWidth);
-      e.style('arrow-scale', arrowScale);
-    }
-
-    e.style('color', nodeColor);
-    e.style('background-color', successorColor);
-    e.style('line-color', successorColor);
-    e.style('source-arrow-color', successorColor);
-    setOpacityElement(e, 0.5);
-  });
-  target_element.predecessors().each(function (e) {
-    // 하위 엣지와 노드
-    if (e.isEdge()) {
-      e.style('width', edgeWidth);
-      e.style('arrow-scale', arrowScale);
-    }
-
-    e.style('color', nodeColor);
-    e.style('background-color', predecessorsColor);
-    e.style('line-color', predecessorsColor);
-    e.style('source-arrow-color', predecessorsColor);
-    setOpacityElement(e, 0.5);
-  });
-  target_element.neighborhood().each(function (e) {
-    // 이웃한 엣지와 노드
-    setOpacityElement(e, 1);
-  });
-  target_element.style('width', Math.max(parseFloat(target_element.style('width')), nodeActiveSize));
-  target_element.style('height', Math.max(parseFloat(target_element.style('height')), nodeActiveSize));
-  target_element.style('font-size', Math.max(parseFloat(target_element.style('font-size')), fontActiveSize));
-}
-
-function setOpacityElement(target_element, degree) {
-  target_element.style('opacity', degree);
-}
-
-function setResetFocus(target_cy) {
-  target_cy.nodes().forEach(function (target) {
-    target.style('background-color', nodeColor);
-    var rank = pageRank.rank(target);
-    target.style('width', nodeMaxSize * rank + nodeMinSize);
-    target.style('height', nodeMaxSize * rank + nodeMinSize);
-    target.style('font-size', fontMaxSize * rank + fontMinSize);
-    target.style('color', nodeColor);
-    target.style('opacity', 1);
-  });
-  target_cy.edges().forEach(function (target) {
-    target.style('line-color', edgeColor);
-    target.style('source-arrow-color', edgeColor);
-    target.style('width', edgeWidth);
-    target.style('arrow-scale', arrowScale);
-    target.style('opacity', 1);
-  });
-}
 
 /***/ }),
 /* 1 */
@@ -3661,1504 +3618,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 5 */
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-    if(true) {
-      // 1619095399860
-      var cssReload = __webpack_require__(6)(module.id, {"locals":false});
-      module.hot.dispose(cssReload);
-      module.hot.accept(undefined, cssReload);
-    }
-  
-
-/***/ }),
-/* 6 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-/* eslint-env browser */
-
-/*
-  eslint-disable
-  no-console,
-  func-names
-*/
-
-var normalizeUrl = __webpack_require__(7);
-
-var srcByModuleId = Object.create(null);
-var noDocument = typeof document === 'undefined';
-var forEach = Array.prototype.forEach;
-
-function debounce(fn, time) {
-  var timeout = 0;
-  return function () {
-    var self = this; // eslint-disable-next-line prefer-rest-params
-
-    var args = arguments;
-
-    var functionCall = function functionCall() {
-      return fn.apply(self, args);
-    };
-
-    clearTimeout(timeout);
-    timeout = setTimeout(functionCall, time);
-  };
-}
-
-function noop() {}
-
-function getCurrentScriptUrl(moduleId) {
-  var src = srcByModuleId[moduleId];
-
-  if (!src) {
-    if (document.currentScript) {
-      src = document.currentScript.src;
-    } else {
-      var scripts = document.getElementsByTagName('script');
-      var lastScriptTag = scripts[scripts.length - 1];
-
-      if (lastScriptTag) {
-        src = lastScriptTag.src;
-      }
-    }
-
-    srcByModuleId[moduleId] = src;
-  }
-
-  return function (fileMap) {
-    if (!src) {
-      return null;
-    }
-
-    var splitResult = src.split(/([^\\/]+)\.js$/);
-    var filename = splitResult && splitResult[1];
-
-    if (!filename) {
-      return [src.replace('.js', '.css')];
-    }
-
-    if (!fileMap) {
-      return [src.replace('.js', '.css')];
-    }
-
-    return fileMap.split(',').map(function (mapRule) {
-      var reg = new RegExp("".concat(filename, "\\.js$"), 'g');
-      return normalizeUrl(src.replace(reg, "".concat(mapRule.replace(/{fileName}/g, filename), ".css")));
-    });
-  };
-}
-
-function updateCss(el, url) {
-  if (!url) {
-    if (!el.href) {
-      return;
-    } // eslint-disable-next-line
-
-
-    url = el.href.split('?')[0];
-  }
-
-  if (!isUrlRequest(url)) {
-    return;
-  }
-
-  if (el.isLoaded === false) {
-    // We seem to be about to replace a css link that hasn't loaded yet.
-    // We're probably changing the same file more than once.
-    return;
-  }
-
-  if (!url || !(url.indexOf('.css') > -1)) {
-    return;
-  } // eslint-disable-next-line no-param-reassign
-
-
-  el.visited = true;
-  var newEl = el.cloneNode();
-  newEl.isLoaded = false;
-  newEl.addEventListener('load', function () {
-    if (newEl.isLoaded) {
-      return;
-    }
-
-    newEl.isLoaded = true;
-    el.parentNode.removeChild(el);
-  });
-  newEl.addEventListener('error', function () {
-    if (newEl.isLoaded) {
-      return;
-    }
-
-    newEl.isLoaded = true;
-    el.parentNode.removeChild(el);
-  });
-  newEl.href = "".concat(url, "?").concat(Date.now());
-
-  if (el.nextSibling) {
-    el.parentNode.insertBefore(newEl, el.nextSibling);
-  } else {
-    el.parentNode.appendChild(newEl);
-  }
-}
-
-function getReloadUrl(href, src) {
-  var ret; // eslint-disable-next-line no-param-reassign
-
-  href = normalizeUrl(href, {
-    stripWWW: false
-  }); // eslint-disable-next-line array-callback-return
-
-  src.some(function (url) {
-    if (href.indexOf(src) > -1) {
-      ret = url;
-    }
-  });
-  return ret;
-}
-
-function reloadStyle(src) {
-  if (!src) {
-    return false;
-  }
-
-  var elements = document.querySelectorAll('link');
-  var loaded = false;
-  forEach.call(elements, function (el) {
-    if (!el.href) {
-      return;
-    }
-
-    var url = getReloadUrl(el.href, src);
-
-    if (!isUrlRequest(url)) {
-      return;
-    }
-
-    if (el.visited === true) {
-      return;
-    }
-
-    if (url) {
-      updateCss(el, url);
-      loaded = true;
-    }
-  });
-  return loaded;
-}
-
-function reloadAll() {
-  var elements = document.querySelectorAll('link');
-  forEach.call(elements, function (el) {
-    if (el.visited === true) {
-      return;
-    }
-
-    updateCss(el);
-  });
-}
-
-function isUrlRequest(url) {
-  // An URL is not an request if
-  // It is not http or https
-  if (!/^https?:/i.test(url)) {
-    return false;
-  }
-
-  return true;
-}
-
-module.exports = function (moduleId, options) {
-  if (noDocument) {
-    console.log('no window.document found, will not HMR CSS');
-    return noop;
-  }
-
-  var getScriptSrc = getCurrentScriptUrl(moduleId);
-
-  function update() {
-    var src = getScriptSrc(options.filename);
-    var reloaded = reloadStyle(src);
-
-    if (options.locals) {
-      console.log('[HMR] Detected local css modules. Reload all css');
-      reloadAll();
-      return;
-    }
-
-    if (reloaded) {
-      console.log('[HMR] css reload %s', src.join(' '));
-    } else {
-      console.log('[HMR] Reload all css');
-      reloadAll();
-    }
-  }
-
-  return debounce(update, 50);
-};
-
-/***/ }),
-/* 7 */
-/***/ ((module) => {
-
-"use strict";
-
-/* eslint-disable */
-
-function normalizeUrl(pathComponents) {
-  return pathComponents.reduce(function (accumulator, item) {
-    switch (item) {
-      case '..':
-        accumulator.pop();
-        break;
-
-      case '.':
-        break;
-
-      default:
-        accumulator.push(item);
-    }
-
-    return accumulator;
-  }, []).join('/');
-}
-
-module.exports = function (urlString) {
-  urlString = urlString.trim();
-
-  if (/^data:/i.test(urlString)) {
-    return urlString;
-  }
-
-  var protocol = urlString.indexOf('//') !== -1 ? urlString.split('//')[0] + '//' : '';
-  var components = urlString.replace(new RegExp(protocol, 'i'), '').split('/');
-  var host = components[0].toLowerCase().replace(/\.$/, '');
-  components[0] = '';
-  var path = normalizeUrl(components);
-  return protocol + host + path;
-};
-
-/***/ }),
-/* 8 */
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-
-/**
- * @note This file exists merely as an easy reference for folks adding it to their configuration entries
- */
-(() => {
-  /* eslint-disable global-require */
-  const {
-    run
-  } = __webpack_require__(9);
-
-  let hash = '<unknown>';
-  let options;
-
-  try {
-    options = {"compress":null,"headers":null,"historyFallback":false,"hmr":true,"host":null,"liveReload":false,"log":{"level":"info","prefix":{"template":"{{level}}"},"name":"webpack-plugin-serve"},"open":false,"port":55555,"progress":true,"ramdisk":false,"secure":false,"static":["/Users/ssongs2/map"],"status":true,"address":"[::]:55555","compilerName":null,"wpsId":"797db9e"};
-  } catch (e) {
-    const {
-      log
-    } = __webpack_require__(11);
-
-    log.error('The entry for webpack-plugin-serve was included in your build, but it does not appear that the plugin was. Please check your configuration.');
-  }
-
-  try {
-    // eslint-disable-next-line camelcase
-    hash = __webpack_require__.h();
-  } catch (e) {} // eslint-disable-line no-empty
-
-
-  run(hash, options);
-})();
-
-/***/ }),
-/* 9 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-
-/* eslint-disable global-require */
-const run = (buildHash, options) => {
-  const {
-    address,
-    client = {},
-    hmr,
-    progress,
-    secure,
-    status
-  } = options;
-  options.firstInstance = !window.webpackPluginServe; // eslint-disable-line no-param-reassign
-
-  window.webpackPluginServe = window.webpackPluginServe || {
-    compilers: {}
-  };
-  window.webpackPluginServe.silent = !!client.silent;
-
-  const {
-    ClientSocket
-  } = __webpack_require__(10);
-
-  const {
-    replace
-  } = __webpack_require__(12);
-
-  const {
-    error,
-    info,
-    warn
-  } = __webpack_require__(11)();
-
-  const protocol = secure ? 'wss' : 'ws';
-  const socket = new ClientSocket(client, `${client.protocol || protocol}://${client.address || address}/wps`);
-  const {
-    compilerName
-  } = options;
-  window.webpackPluginServe.compilers[compilerName] = {}; // prevents ECONNRESET errors on the server
-
-  window.addEventListener('beforeunload', () => socket.close());
-  socket.addEventListener('message', message => {
-    const {
-      action,
-      data = {}
-    } = JSON.parse(message.data);
-    const {
-      errors,
-      hash = '<?>',
-      warnings
-    } = data || {};
-    const shortHash = hash.slice(0, 7);
-    const identifier = options.compilerName ? `(Compiler: ${options.compilerName}) ` : '';
-    const compiler = window.webpackPluginServe.compilers[compilerName];
-    const {
-      wpsId
-    } = data;
-
-    switch (action) {
-      case 'build':
-        compiler.done = false;
-        break;
-
-      case 'connected':
-        info(`WebSocket connected ${identifier}`);
-        break;
-
-      case 'done':
-        compiler.done = true;
-        break;
-
-      case 'problems':
-        if (data.errors.length) {
-          error(`${identifier}Build ${shortHash} produced errors:\n`, errors);
-        }
-
-        if (data.warnings.length) {
-          warn(`${identifier}Build ${shortHash} produced warnings:\n`, warnings);
-        }
-
-        break;
-
-      case 'reload':
-        window.location.reload();
-        break;
-
-      case 'replace':
-        // actions with a wpsId in tow indicate actions that should only be executed when the wpsId sent
-        // matches the wpsId set in options. this is how we can identify multiple compilers in the
-        // client.
-        if (wpsId && wpsId === options.wpsId) {
-          replace(buildHash, hash, hmr === 'refresh-on-failure');
-        }
-
-        break;
-
-      default:
-    }
-  });
-
-  if (options.firstInstance) {
-    if (progress === 'minimal') {
-      const {
-        init
-      } = __webpack_require__(13);
-
-      init(options, socket);
-    } else if (progress) {
-      const {
-        init
-      } = __webpack_require__(15);
-
-      init(options, socket);
-    }
-
-    if (status) {
-      const {
-        init
-      } = __webpack_require__(16);
-
-      init(options, socket);
-    }
-
-    if (true) {
-      info('Hot Module Replacement is active');
-
-      if (options.liveReload) {
-        info('Live Reload taking precedence over Hot Module Replacement');
-      }
-    } else {}
-
-    if (false) {}
-  }
-};
-
-module.exports = {
-  run
-};
-
-/***/ }),
-/* 10 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  error,
-  refresh,
-  warn
-} = __webpack_require__(11)(); // ignore 1008 (HTTP 400 equivalent) and 1011 (HTTP 500 equivalent)
-
-
-const ignoreCodes = [1008, 1011];
-const maxAttempts = 10;
-
-class ClientSocket {
-  constructor(options, ...args) {
-    this.args = args;
-    this.attempts = 0;
-    this.eventHandlers = [];
-    this.options = options;
-    this.retrying = false;
-    this.connect();
-  }
-
-  addEventListener(...args) {
-    this.eventHandlers.push(args);
-    this.socket.addEventListener(...args);
-  }
-
-  close() {
-    this.socket.close();
-  }
-
-  connect() {
-    if (this.socket) {
-      delete this.socket;
-    }
-
-    this.connecting = true;
-    this.socket = new WebSocket(...this.args);
-
-    if (this.options.retry) {
-      this.socket.addEventListener('close', event => {
-        if (ignoreCodes.includes(event.code)) {
-          return;
-        }
-
-        if (!this.retrying) {
-          warn(`The WebSocket was closed and will attempt to reconnect`);
-        }
-
-        this.reconnect();
-      });
-    } else {
-      this.socket.onclose = () => warn(`The client WebSocket was closed. ${refresh}`);
-    }
-
-    this.socket.addEventListener('open', () => {
-      this.attempts = 0;
-      this.retrying = false;
-    });
-
-    if (this.eventHandlers.length) {
-      for (const [name, fn] of this.eventHandlers) {
-        this.socket.addEventListener(name, fn);
-      }
-    }
-  }
-
-  reconnect() {
-    this.attempts += 1;
-    this.retrying = true;
-
-    if (this.attempts > maxAttempts) {
-      error(`The WebSocket could not be reconnected. ${refresh}`);
-      this.retrying = false;
-      return;
-    }
-
-    const timeout = 1000 * this.attempts ** 2;
-    setTimeout(() => this.connect(this.args), timeout);
-  }
-
-  removeEventListener(...args) {
-    const [, handler] = args;
-    this.eventHandlers = this.eventHandlers.filter(([, fn]) => fn === handler);
-    this.socket.removeEventListener(...args);
-  }
-
-}
-
-module.exports = {
-  ClientSocket
-};
-
-/***/ }),
-/* 11 */
-/***/ ((module) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  error,
-  info,
-  warn
-} = console;
-const log = {
-  error: error.bind(console, '⬡ wps:'),
-  info: info.bind(console, '⬡ wps:'),
-  refresh: 'Please refresh the page',
-  warn: warn.bind(console, '⬡ wps:')
-};
-
-const noop = () => {};
-
-const silent = {
-  error: noop,
-  info: noop,
-  warn: noop
-};
-
-module.exports = () => window.webpackPluginServe.silent ? silent : log;
-
-/***/ }),
-/* 12 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  error,
-  info,
-  refresh,
-  warn
-} = __webpack_require__(11)();
-
-let latest = true;
-
-const hmr = onFailure => {
-  return {
-    onUnaccepted(data) {
-      onFailure();
-      warn('Change in unaccepted module(s):\n', data);
-      warn(data);
-    },
-
-    onDeclined(data) {
-      onFailure();
-      warn('Change in declined module(s):\n', data);
-    },
-
-    onErrored(data) {
-      onFailure();
-      error('Error in module(s):\n', data);
-    }
-
-  };
-};
-
-const replace = async (buildHash, hash, refreshOnFailure) => {
-  const {
-    apply,
-    check,
-    status
-  } = module.hot;
-
-  if (hash) {
-    // eslint-disable-next-line no-undef
-    latest = hash.includes(buildHash);
-  }
-
-  if (!latest) {
-    const hmrStatus = status();
-
-    if (hmrStatus === 'abort' || hmrStatus === 'fail') {
-      warn(`An HMR update was triggered, but ${hmrStatus}ed. ${refresh}`);
-      return;
-    }
-
-    let modules;
-
-    try {
-      modules = await check(false);
-    } catch (e) {
-      // noop. this typically happens when a MultiCompiler has more than one compiler that includes
-      // this script, and an update happens with a hash that isn't part of the compiler/module this
-      // instance was loaded for.
-      return;
-    }
-
-    if (!modules) {
-      warn(`No modules found for replacement. ${refresh}`);
-      return;
-    }
-
-    modules = await apply(hmr(refreshOnFailure ? () => {
-      if (refreshOnFailure) {
-        // eslint-disable-next-line no-undef
-        location.reload();
-      }
-    } : () => {}));
-
-    if (modules) {
-      latest = true;
-      info(`Build ${hash.slice(0, 7)} replaced:\n`, modules);
-    }
-  }
-};
-
-module.exports = {
-  replace
-};
-
-/***/ }),
-/* 13 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell, Matheus Gonçalves da Silva
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  addCss,
-  addHtml
-} = __webpack_require__(14);
-
-const ns = 'wps-progress-minimal';
-const html = `
-<div id="${ns}" class="${ns}-hidden">
-  <div id="${ns}-bar"></div>
-</div>
-`;
-const css = `
-#${ns} {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 100vw;
-  z-index: 2147483645;
-}
-
-#${ns}-bar {
-  width: 0%;
-  height: 4px;
-  background-color: rgb(186, 223, 172);
-}
-
-@keyframes ${ns}-fade {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-.${ns}-disappear {
-  animation: ${ns}-fade .3s;
-  animation-fill-mode: forwards;
-  animation-delay: .5s;
-}
-
-.${ns}-hidden {
-  display: none;
-}
-`;
-let hideOnPageVisible = false;
-
-const update = percent => {
-  const bar = document.querySelector(`#${ns}-bar`);
-  bar.style.width = `${percent}%`;
-};
-
-const reset = wrapper => {
-  wrapper.classList.add(`${ns}-disappear`);
-};
-
-const init = (options, socket) => {
-  if (options.firstInstance) {
-    document.addEventListener('DOMContentLoaded', () => {
-      addCss(css);
-      addHtml(html);
-      const wrapper = document.querySelector(`#${ns}`);
-      wrapper.addEventListener('animationend', () => {
-        update(0);
-        wrapper.classList.add(`${ns}-hidden`);
-      });
-    });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && hideOnPageVisible) {
-        const wrapper = document.querySelector(`#${ns}`);
-        reset(wrapper);
-        hideOnPageVisible = false;
-      }
-    });
-  }
-
-  socket.addEventListener('message', message => {
-    const {
-      action,
-      data
-    } = JSON.parse(message.data);
-
-    if (action !== 'progress') {
-      return;
-    }
-
-    const percent = Math.floor(data.percent * 100);
-    const wrapper = document.querySelector(`#${ns}`);
-    wrapper.classList.remove(`${ns}-hidden`, `${ns}-disappear`);
-
-    if (data.percent === 1) {
-      if (document.hidden) {
-        hideOnPageVisible = true;
-      } else {
-        reset(wrapper);
-      }
-    } else {
-      hideOnPageVisible = false;
-    }
-
-    update(percent);
-  });
-};
-
-module.exports = {
-  init
-};
-
-/***/ }),
-/* 14 */
-/***/ ((module) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const addHtml = (html, parent) => {
-  const div = document.createElement('div');
-  const nodes = [];
-  div.innerHTML = html.trim();
-
-  while (div.firstChild) {
-    nodes.push((parent || document.body).appendChild(div.firstChild));
-  }
-
-  return nodes;
-};
-
-const addCss = css => {
-  const style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (css.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  } // append the stylesheet for the svg
-
-
-  document.head.appendChild(style);
-};
-
-const socketMessage = (socket, handler) => {
-  socket.addEventListener('message', message => {
-    const {
-      action,
-      data = {}
-    } = JSON.parse(message.data);
-    handler(action, data);
-  });
-};
-
-module.exports = {
-  addCss,
-  addHtml,
-  socketMessage
-};
-
-/***/ }),
-/* 15 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell, Matheus Gonçalves da Silva
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  addCss,
-  addHtml
-} = __webpack_require__(14);
-
-const ns = 'wps-progress';
-const css = `
-#${ns}{
-  width: 200px;
-  height: 200px;
-  position: fixed;
-  right: 5%;
-  top: 5%;
-  transition: opacity .25s ease-in-out;
-  z-index: 2147483645;
-}
-
-#${ns}-bg {
-  fill: #282d35;
-}
-
-#${ns}-fill {
-  fill: rgba(0, 0, 0, 0);
-  stroke: rgb(186, 223, 172);
-  stroke-dasharray: 219.99078369140625;
-  stroke-dashoffset: -219.99078369140625;
-  stroke-width: 10;
-  transform: rotate(90deg)translate(0px, -80px);
-}
-
-#${ns}-percent {
-  font-family: 'Open Sans';
-  font-size: 18px;
-  fill: #ffffff;
-}
-
-#${ns}-percent-value {
-  dominant-baseline: middle;
-  text-anchor: middle;
-}
-
-#${ns}-percent-super {
-  fill: #bdc3c7;
-  font-size: .45em;
-  baseline-shift: 10%;
-}
-
-.${ns}-noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: default;
-}
-
-@keyframes ${ns}-fade {
-	0% {
-		opacity: 1;
-		transform: scale(1);
-		-webkit-transform: scale(1);
-	}
-	100% {
-		opacity: 0;
-		transform: scale(0);
-		-webkit-transform: scale(0);
-	}
-}
-
-.${ns}-disappear {
-  animation: ${ns}-fade .3s;
-  animation-fill-mode:forwards;
-  animation-delay: .5s;
-}
-
-.${ns}-hidden {
-  display: none;
-}
-
-/* Put google web font at the end, or you'll see FOUC in Firefox */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-`;
-const html = `
-<svg id="${ns}" class="${ns}-noselect ${ns}-hidden" x="0px" y="0px" viewBox="0 0 80 80">
-  <circle id="${ns}-bg" cx="50%" cy="50%" r="35"></circle>
-  <path id="${ns}-fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
-  <text id="${ns}-percent" x="50%" y="51%"><tspan id="${ns}-percent-value">0</tspan><tspan id="${ns}-percent-super">%</tspan></text>
-</svg>
-`;
-let hideOnPageVisible = false;
-
-const update = percent => {
-  const max = -219.99078369140625;
-  const value = document.querySelector(`#${ns}-percent-value`);
-  const track = document.querySelector(`#${ns}-fill`);
-  const offset = (100 - percent) / 100 * max;
-  track.setAttribute('style', `stroke-dashoffset: ${offset}`);
-  value.innerHTML = percent.toString();
-};
-
-const reset = svg => {
-  svg.classList.add(`${ns}-disappear`);
-};
-
-const init = (options, socket) => {
-  if (options.firstInstance) {
-    document.addEventListener('DOMContentLoaded', () => {
-      addCss(css);
-      addHtml(html); // Reset progress to zero after disappear animation
-
-      const svg = document.querySelector(`#${ns}`);
-      svg.addEventListener('animationend', () => {
-        update(0);
-        svg.classList.add(`${ns}-hidden`);
-      });
-    });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && hideOnPageVisible) {
-        const svg = document.querySelector(`#${ns}`);
-        reset(svg);
-        hideOnPageVisible = false;
-      }
-    });
-  }
-
-  socket.addEventListener('message', message => {
-    const {
-      action,
-      data
-    } = JSON.parse(message.data);
-
-    if (action !== 'progress') {
-      return;
-    }
-
-    const percent = Math.floor(data.percent * 100);
-    const svg = document.querySelector(`#${ns}`);
-
-    if (!svg) {
-      return;
-    } // we can safely call this even if it doesn't have the class
-
-
-    svg.classList.remove(`${ns}-disappear`, `${ns}-hidden`);
-
-    if (data.percent === 1) {
-      if (document.hidden) {
-        hideOnPageVisible = true;
-      } else {
-        reset(svg);
-      }
-    } else {
-      hideOnPageVisible = false;
-    }
-
-    update(percent);
-  });
-};
-
-module.exports = {
-  init
-};
-
-/***/ }),
-/* 16 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-/*
-  Copyright © 2018 Andrew Powell
-
-  This Source Code Form is subject to the terms of the Mozilla Public
-  License, v. 2.0. If a copy of the MPL was not distributed with this
-  file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of this Source Code Form.
-*/
-const {
-  addCss,
-  addHtml,
-  socketMessage
-} = __webpack_require__(14);
-
-const ns = 'wps-status';
-const css = `
-#${ns} {
-  background: #282d35;
-  border-radius: 0.6em;
-  display: flex;
-  flex-direction: column;
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-	font-size: 10px;
-  height: 90%;
-  min-height: 20em;
-  left: 50%;
-  opacity: 1;
-  overflow: hidden;
-  padding-bottom: 3em;
-  position: absolute;
-  top: 2rem;
-  transform: translateX(-50%);
-  transition: opacity .25s ease-in-out;
-  width: 95%;
-  z-index: 2147483645;
-}
-
-@keyframes ${ns}-hidden-display {
-	0% {
-		opacity: 1;
-	}
-	99% {
-		display: inline-flex;
-		opacity: 0;
-	}
-	100% {
-		display: none;
-		opacity: 0;
-	}
-}
-
-#${ns}.${ns}-hidden {
-  animation: ${ns}-hidden-display .3s;
-  animation-fill-mode:forwards;
-  display: none;
-}
-
-#${ns}.${ns}-min {
-  animation: minimize 10s;
-  bottom: 2em;
-  cursor: pointer;
-  height: 6em;
-  left: auto;
-  min-height: 6em;
-  padding-bottom: 0;
-  position: absolute;
-  right: 2em;
-  top: auto;
-  transform: none;
-  width: 6em;
-}
-
-#${ns}.${ns}-min #${ns}-beacon {
-  display: block;
-}
-
-#${ns}-title {
-  color: #fff;
-  font-size: 1.2em;
-  font-weight: normal;
-  margin: 0;
-  padding: 0.6em 0;
-  text-align: center;
-  width: 100%;
-}
-
-#${ns}.${ns}-min #${ns}-title {
-  display: none;
-}
-
-#${ns}-title-errors {
-  color: #ff5f58;
-  font-style: normal;
-  padding-left: 1em;
-}
-
-#${ns}-title-warnings {
-  color: #ffbd2e;
-  font-style: normal;
-  padding-left: 1em;
-}
-
-#${ns}-problems {
-  overflow-y: auto;
-  padding: 1em 2em;
-}
-
-#${ns}-problems pre {
-  color: #ddd;
-  background: #282d35;
-  display: block;
-  font-size: 1.3em;
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  white-space: pre-wrap;
-}
-
-#${ns}-problems pre em {
-  background: #ff5f58;
-  border-radius: 0.3em;
-  color: #641e16;
-  font-style: normal;
-  line-height: 3em;
-  margin-right: 0.4em;
-  padding: 0.1em 0.4em;
-  text-transform: uppercase;
-}
-
-pre#${ns}-warnings em {
-  background: #ffbd2e;
-  color: #3e2723;
-}
-
-pre#${ns}-success {
-  display: none;
-  text-align: center;
-}
-
-pre#${ns}-success em {
-  background: #7fb900;
-  color: #004d40;
-}
-
-#${ns}-problems.${ns}-success #${ns}-success {
-  display: block;
-}
-
-#${ns}.${ns}-min #${ns}-problems {
-  display: none;
-}
-
-#${ns}-nav {
-  opacity: 0.5;
-  padding: 1.2em;
-  position: absolute;
-}
-
-#${ns}.${ns}-min #${ns}-nav {
-  display: none;
-}
-
-#${ns}-nav:hover {
-  opacity: 1;
-}
-
-#${ns}-nav div {
-  background: #ff5f58;
-  border-radius: 1.2em;
-  cursor: pointer;
-  display: inline-block;
-  height: 1.2em;
-  position: relative;
-  width: 1.2em;
-}
-
-div#${ns}-min {
-  background: #ffbd2e;
-  margin-left: 0.8em;
-}
-
-#${ns}-beacon {
-  border-radius: 3em;
-  display: none;
-  font-size: 10px;
-  height: 3em;
-  margin: 1.6em auto;
-  position: relative;
-  width: 3em;
-}
-
-#${ns}-beacon:before, #${ns}-beacon:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(127,185,0, 0.2);
-  border-radius: 3em;
-  opacity: 0;
-}
-
-#${ns}-beacon:before {
-  animation: ${ns}-pulse 3s infinite linear;
-  transform: scale(1);
-}
-
-#${ns}-beacon:after {
-  animation: ${ns}-pulse 3s 2s infinite linear;
-}
-
-
-@keyframes ${ns}-pulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  33% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.4);
-  }
-}
-
-#${ns}-beacon mark {
-  background: rgba(127, 185, 0, 1);
-  border-radius: 100% 100%;
-  height: 1em;
-  left: 1em;
-  position: absolute;
-  top: 1em;
-  width: 1em;
-}
-
-#${ns}-beacon.${ns}-error mark {
-  background: #ff5f58;
-}
-
-#${ns}-beacon.${ns}-error:before, #${ns}-beacon.error:after {
-  background: rgba(255, 95, 88, 0.2);
-}
-
-#${ns}-beacon.${ns}-warning mark {
-  background: #ffbd2e;
-}
-
-#${ns}-beacon.${ns}-warning:before, #${ns}-beacon.warning:after {
-  background: rgba(255, 189, 46, 0.2);
-}
-
-/* Put google web font at the end, or you'll see FOUC in Firefox */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
-`;
-const html = `
-<aside id="${ns}" class="${ns}-hidden" title="build status">
-  <figure id="${ns}-beacon">
-    <mark/>
-  </figure>
-  <nav id="${ns}-nav">
-    <div id="${ns}-close" title="close"></div>
-    <div id="${ns}-min" title="minmize"></div>
-  </nav>
-  <h1 id="${ns}-title">
-    build status
-    <em id="${ns}-title-errors"></em>
-    <em id="${ns}-title-warnings"></em>
-  </h1>
-  <article id="${ns}-problems">
-    <pre id="${ns}-success"><em>Build Successful</em></pre>
-    <pre id="${ns}-errors"></pre>
-    <pre id="${ns}-warnings"></pre>
-  </article>
-</aside>
-`;
-
-const init = (options, socket) => {
-  const hidden = `${ns}-hidden`;
-  let hasProblems = false;
-  let aside;
-  let beacon;
-  let problems;
-  let preErrors;
-  let preWarnings;
-  let titleErrors;
-  let titleWarnings;
-
-  const reset = () => {
-    preErrors.innerHTML = '';
-    preWarnings.innerHTML = '';
-    problems.classList.remove(`${ns}-success`);
-    beacon.className = '';
-    titleErrors.innerText = '';
-    titleWarnings.innerText = '';
-  };
-
-  const addErrors = errors => {
-    if (errors.length) {
-      problems.classList.remove(`${ns}-success`);
-      beacon.classList.add(`${ns}-error`);
-
-      for (const error of errors) {
-        const markup = `<div><em>Error</em> in ${error}</div>`;
-        addHtml(markup, preErrors);
-      }
-
-      titleErrors.innerText = `${errors.length} Error(s)`;
-    } else {
-      titleErrors.innerText = '';
-    }
-
-    aside.classList.remove(hidden);
-  };
-
-  const addWarnings = warnings => {
-    if (warnings.length) {
-      problems.classList.remove(`${ns}-success`);
-
-      if (!beacon.classList.contains(`${ns}-error`)) {
-        beacon.classList.add(`${ns}-warning`);
-      }
-
-      for (const warning of warnings) {
-        const markup = `<div><em>Warning</em> in ${warning}</div>`;
-        addHtml(markup, preWarnings);
-      }
-
-      titleWarnings.innerText = `${warnings.length} Warning(s)`;
-    } else {
-      titleWarnings.innerText = '';
-    }
-
-    aside.classList.remove(hidden);
-  };
-
-  if (options.firstInstance) {
-    document.addEventListener('DOMContentLoaded', () => {
-      addCss(css);
-      [aside] = addHtml(html);
-      beacon = document.querySelector(`#${ns}-beacon`);
-      problems = document.querySelector(`#${ns}-problems`);
-      preErrors = document.querySelector(`#${ns}-errors`);
-      preWarnings = document.querySelector(`#${ns}-warnings`);
-      titleErrors = document.querySelector(`#${ns}-title-errors`);
-      titleWarnings = document.querySelector(`#${ns}-title-warnings`);
-      const close = document.querySelector(`#${ns}-close`);
-      const min = document.querySelector(`#${ns}-min`);
-      aside.addEventListener('click', () => {
-        aside.classList.remove(`${ns}-min`);
-      });
-      close.addEventListener('click', () => {
-        aside.classList.add(`${ns}-hidden`);
-      });
-      min.addEventListener('click', e => {
-        aside.classList.add(`${ns}-min`);
-        e.stopImmediatePropagation();
-      });
-    });
-  }
-
-  socketMessage(socket, (action, data) => {
-    if (!aside) {
-      return;
-    }
-
-    const {
-      compilers
-    } = window.webpackPluginServe;
-
-    switch (action) {
-      case 'build':
-        // clear errors and warnings when a new build begins
-        reset();
-        break;
-
-      case 'problems':
-        addErrors(data.errors);
-        addWarnings(data.warnings);
-        aside.classList.remove(hidden);
-        hasProblems = data.errors.length || data.warnings.length;
-        break;
-
-      case 'replace':
-        // if there's a compiler that isn't done yet, hold off and let it run the show
-        for (const compilerName of Object.keys(compilers)) {
-          if (!compilers[compilerName]) {
-            return;
-          }
-        }
-
-        if (hasProblems && !preErrors.children.length && !preWarnings.children.length) {
-          reset();
-          hasProblems = false;
-          problems.classList.add(`${ns}-success`);
-          aside.classList.remove(hidden);
-          setTimeout(() => aside.classList.add(hidden), 3e3);
-        }
-
-        break;
-
-      default:
-    }
-  });
-};
-
-module.exports = {
-  init
-};
-
-/***/ }),
-/* 17 */
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(18));else {}
+  if (true) module.exports = factory(__webpack_require__(6));else {}
 })(this, function (__WEBPACK_EXTERNAL_MODULE_0__) {
   return (
     /******/
@@ -5758,11 +4221,11 @@ module.exports = {
 });
 
 /***/ }),
-/* 18 */
+/* 6 */
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory(__webpack_require__(19));else {}
+  if (true) module.exports = factory(__webpack_require__(7));else {}
 })(this, function (__WEBPACK_EXTERNAL_MODULE_0__) {
   return (
     /******/
@@ -7322,7 +5785,7 @@ module.exports = {
 });
 
 /***/ }),
-/* 19 */
+/* 7 */
 /***/ (function(module) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -11863,6 +10326,1522 @@ module.exports = {
   );
 });
 
+/***/ }),
+/* 8 */
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+    if(true) {
+      // 1620300488173
+      var cssReload = __webpack_require__(9)(module.id, {"locals":false});
+      module.hot.dispose(cssReload);
+      module.hot.accept(undefined, cssReload);
+    }
+  
+
+/***/ }),
+/* 9 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+/* eslint-env browser */
+
+/*
+  eslint-disable
+  no-console,
+  func-names
+*/
+
+var normalizeUrl = __webpack_require__(10);
+
+var srcByModuleId = Object.create(null);
+var noDocument = typeof document === 'undefined';
+var forEach = Array.prototype.forEach;
+
+function debounce(fn, time) {
+  var timeout = 0;
+  return function () {
+    var self = this; // eslint-disable-next-line prefer-rest-params
+
+    var args = arguments;
+
+    var functionCall = function functionCall() {
+      return fn.apply(self, args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(functionCall, time);
+  };
+}
+
+function noop() {}
+
+function getCurrentScriptUrl(moduleId) {
+  var src = srcByModuleId[moduleId];
+
+  if (!src) {
+    if (document.currentScript) {
+      src = document.currentScript.src;
+    } else {
+      var scripts = document.getElementsByTagName('script');
+      var lastScriptTag = scripts[scripts.length - 1];
+
+      if (lastScriptTag) {
+        src = lastScriptTag.src;
+      }
+    }
+
+    srcByModuleId[moduleId] = src;
+  }
+
+  return function (fileMap) {
+    if (!src) {
+      return null;
+    }
+
+    var splitResult = src.split(/([^\\/]+)\.js$/);
+    var filename = splitResult && splitResult[1];
+
+    if (!filename) {
+      return [src.replace('.js', '.css')];
+    }
+
+    if (!fileMap) {
+      return [src.replace('.js', '.css')];
+    }
+
+    return fileMap.split(',').map(function (mapRule) {
+      var reg = new RegExp("".concat(filename, "\\.js$"), 'g');
+      return normalizeUrl(src.replace(reg, "".concat(mapRule.replace(/{fileName}/g, filename), ".css")));
+    });
+  };
+}
+
+function updateCss(el, url) {
+  if (!url) {
+    if (!el.href) {
+      return;
+    } // eslint-disable-next-line
+
+
+    url = el.href.split('?')[0];
+  }
+
+  if (!isUrlRequest(url)) {
+    return;
+  }
+
+  if (el.isLoaded === false) {
+    // We seem to be about to replace a css link that hasn't loaded yet.
+    // We're probably changing the same file more than once.
+    return;
+  }
+
+  if (!url || !(url.indexOf('.css') > -1)) {
+    return;
+  } // eslint-disable-next-line no-param-reassign
+
+
+  el.visited = true;
+  var newEl = el.cloneNode();
+  newEl.isLoaded = false;
+  newEl.addEventListener('load', function () {
+    if (newEl.isLoaded) {
+      return;
+    }
+
+    newEl.isLoaded = true;
+    el.parentNode.removeChild(el);
+  });
+  newEl.addEventListener('error', function () {
+    if (newEl.isLoaded) {
+      return;
+    }
+
+    newEl.isLoaded = true;
+    el.parentNode.removeChild(el);
+  });
+  newEl.href = "".concat(url, "?").concat(Date.now());
+
+  if (el.nextSibling) {
+    el.parentNode.insertBefore(newEl, el.nextSibling);
+  } else {
+    el.parentNode.appendChild(newEl);
+  }
+}
+
+function getReloadUrl(href, src) {
+  var ret; // eslint-disable-next-line no-param-reassign
+
+  href = normalizeUrl(href, {
+    stripWWW: false
+  }); // eslint-disable-next-line array-callback-return
+
+  src.some(function (url) {
+    if (href.indexOf(src) > -1) {
+      ret = url;
+    }
+  });
+  return ret;
+}
+
+function reloadStyle(src) {
+  if (!src) {
+    return false;
+  }
+
+  var elements = document.querySelectorAll('link');
+  var loaded = false;
+  forEach.call(elements, function (el) {
+    if (!el.href) {
+      return;
+    }
+
+    var url = getReloadUrl(el.href, src);
+
+    if (!isUrlRequest(url)) {
+      return;
+    }
+
+    if (el.visited === true) {
+      return;
+    }
+
+    if (url) {
+      updateCss(el, url);
+      loaded = true;
+    }
+  });
+  return loaded;
+}
+
+function reloadAll() {
+  var elements = document.querySelectorAll('link');
+  forEach.call(elements, function (el) {
+    if (el.visited === true) {
+      return;
+    }
+
+    updateCss(el);
+  });
+}
+
+function isUrlRequest(url) {
+  // An URL is not an request if
+  // It is not http or https
+  if (!/^https?:/i.test(url)) {
+    return false;
+  }
+
+  return true;
+}
+
+module.exports = function (moduleId, options) {
+  if (noDocument) {
+    console.log('no window.document found, will not HMR CSS');
+    return noop;
+  }
+
+  var getScriptSrc = getCurrentScriptUrl(moduleId);
+
+  function update() {
+    var src = getScriptSrc(options.filename);
+    var reloaded = reloadStyle(src);
+
+    if (options.locals) {
+      console.log('[HMR] Detected local css modules. Reload all css');
+      reloadAll();
+      return;
+    }
+
+    if (reloaded) {
+      console.log('[HMR] css reload %s', src.join(' '));
+    } else {
+      console.log('[HMR] Reload all css');
+      reloadAll();
+    }
+  }
+
+  return debounce(update, 50);
+};
+
+/***/ }),
+/* 10 */
+/***/ ((module) => {
+
+"use strict";
+
+/* eslint-disable */
+
+function normalizeUrl(pathComponents) {
+  return pathComponents.reduce(function (accumulator, item) {
+    switch (item) {
+      case '..':
+        accumulator.pop();
+        break;
+
+      case '.':
+        break;
+
+      default:
+        accumulator.push(item);
+    }
+
+    return accumulator;
+  }, []).join('/');
+}
+
+module.exports = function (urlString) {
+  urlString = urlString.trim();
+
+  if (/^data:/i.test(urlString)) {
+    return urlString;
+  }
+
+  var protocol = urlString.indexOf('//') !== -1 ? urlString.split('//')[0] + '//' : '';
+  var components = urlString.replace(new RegExp(protocol, 'i'), '').split('/');
+  var host = components[0].toLowerCase().replace(/\.$/, '');
+  components[0] = '';
+  var path = normalizeUrl(components);
+  return protocol + host + path;
+};
+
+/***/ }),
+/* 11 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "favicon.ico");
+
+/***/ }),
+/* 12 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "model/data.json");
+
+/***/ }),
+/* 13 */
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+
+/**
+ * @note This file exists merely as an easy reference for folks adding it to their configuration entries
+ */
+(() => {
+  /* eslint-disable global-require */
+  const {
+    run
+  } = __webpack_require__(14);
+
+  let hash = '<unknown>';
+  let options;
+
+  try {
+    options = {"compress":null,"headers":null,"historyFallback":false,"hmr":true,"host":null,"liveReload":false,"log":{"level":"info","prefix":{"template":"{{level}}"},"name":"webpack-plugin-serve"},"open":false,"port":55555,"progress":true,"ramdisk":false,"secure":false,"static":["/Users/ssongs2/map"],"status":true,"address":"[::]:55555","compilerName":null,"wpsId":"4f5ff01"};
+  } catch (e) {
+    const {
+      log
+    } = __webpack_require__(16);
+
+    log.error('The entry for webpack-plugin-serve was included in your build, but it does not appear that the plugin was. Please check your configuration.');
+  }
+
+  try {
+    // eslint-disable-next-line camelcase
+    hash = __webpack_require__.h();
+  } catch (e) {} // eslint-disable-line no-empty
+
+
+  run(hash, options);
+})();
+
+/***/ }),
+/* 14 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+
+/* eslint-disable global-require */
+const run = (buildHash, options) => {
+  const {
+    address,
+    client = {},
+    hmr,
+    progress,
+    secure,
+    status
+  } = options;
+  options.firstInstance = !window.webpackPluginServe; // eslint-disable-line no-param-reassign
+
+  window.webpackPluginServe = window.webpackPluginServe || {
+    compilers: {}
+  };
+  window.webpackPluginServe.silent = !!client.silent;
+
+  const {
+    ClientSocket
+  } = __webpack_require__(15);
+
+  const {
+    replace
+  } = __webpack_require__(17);
+
+  const {
+    error,
+    info,
+    warn
+  } = __webpack_require__(16)();
+
+  const protocol = secure ? 'wss' : 'ws';
+  const socket = new ClientSocket(client, `${client.protocol || protocol}://${client.address || address}/wps`);
+  const {
+    compilerName
+  } = options;
+  window.webpackPluginServe.compilers[compilerName] = {}; // prevents ECONNRESET errors on the server
+
+  window.addEventListener('beforeunload', () => socket.close());
+  socket.addEventListener('message', message => {
+    const {
+      action,
+      data = {}
+    } = JSON.parse(message.data);
+    const {
+      errors,
+      hash = '<?>',
+      warnings
+    } = data || {};
+    const shortHash = hash.slice(0, 7);
+    const identifier = options.compilerName ? `(Compiler: ${options.compilerName}) ` : '';
+    const compiler = window.webpackPluginServe.compilers[compilerName];
+    const {
+      wpsId
+    } = data;
+
+    switch (action) {
+      case 'build':
+        compiler.done = false;
+        break;
+
+      case 'connected':
+        info(`WebSocket connected ${identifier}`);
+        break;
+
+      case 'done':
+        compiler.done = true;
+        break;
+
+      case 'problems':
+        if (data.errors.length) {
+          error(`${identifier}Build ${shortHash} produced errors:\n`, errors);
+        }
+
+        if (data.warnings.length) {
+          warn(`${identifier}Build ${shortHash} produced warnings:\n`, warnings);
+        }
+
+        break;
+
+      case 'reload':
+        window.location.reload();
+        break;
+
+      case 'replace':
+        // actions with a wpsId in tow indicate actions that should only be executed when the wpsId sent
+        // matches the wpsId set in options. this is how we can identify multiple compilers in the
+        // client.
+        if (wpsId && wpsId === options.wpsId) {
+          replace(buildHash, hash, hmr === 'refresh-on-failure');
+        }
+
+        break;
+
+      default:
+    }
+  });
+
+  if (options.firstInstance) {
+    if (progress === 'minimal') {
+      const {
+        init
+      } = __webpack_require__(18);
+
+      init(options, socket);
+    } else if (progress) {
+      const {
+        init
+      } = __webpack_require__(20);
+
+      init(options, socket);
+    }
+
+    if (status) {
+      const {
+        init
+      } = __webpack_require__(21);
+
+      init(options, socket);
+    }
+
+    if (true) {
+      info('Hot Module Replacement is active');
+
+      if (options.liveReload) {
+        info('Live Reload taking precedence over Hot Module Replacement');
+      }
+    } else {}
+
+    if (false) {}
+  }
+};
+
+module.exports = {
+  run
+};
+
+/***/ }),
+/* 15 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  error,
+  refresh,
+  warn
+} = __webpack_require__(16)(); // ignore 1008 (HTTP 400 equivalent) and 1011 (HTTP 500 equivalent)
+
+
+const ignoreCodes = [1008, 1011];
+const maxAttempts = 10;
+
+class ClientSocket {
+  constructor(options, ...args) {
+    this.args = args;
+    this.attempts = 0;
+    this.eventHandlers = [];
+    this.options = options;
+    this.retrying = false;
+    this.connect();
+  }
+
+  addEventListener(...args) {
+    this.eventHandlers.push(args);
+    this.socket.addEventListener(...args);
+  }
+
+  close() {
+    this.socket.close();
+  }
+
+  connect() {
+    if (this.socket) {
+      delete this.socket;
+    }
+
+    this.connecting = true;
+    this.socket = new WebSocket(...this.args);
+
+    if (this.options.retry) {
+      this.socket.addEventListener('close', event => {
+        if (ignoreCodes.includes(event.code)) {
+          return;
+        }
+
+        if (!this.retrying) {
+          warn(`The WebSocket was closed and will attempt to reconnect`);
+        }
+
+        this.reconnect();
+      });
+    } else {
+      this.socket.onclose = () => warn(`The client WebSocket was closed. ${refresh}`);
+    }
+
+    this.socket.addEventListener('open', () => {
+      this.attempts = 0;
+      this.retrying = false;
+    });
+
+    if (this.eventHandlers.length) {
+      for (const [name, fn] of this.eventHandlers) {
+        this.socket.addEventListener(name, fn);
+      }
+    }
+  }
+
+  reconnect() {
+    this.attempts += 1;
+    this.retrying = true;
+
+    if (this.attempts > maxAttempts) {
+      error(`The WebSocket could not be reconnected. ${refresh}`);
+      this.retrying = false;
+      return;
+    }
+
+    const timeout = 1000 * this.attempts ** 2;
+    setTimeout(() => this.connect(this.args), timeout);
+  }
+
+  removeEventListener(...args) {
+    const [, handler] = args;
+    this.eventHandlers = this.eventHandlers.filter(([, fn]) => fn === handler);
+    this.socket.removeEventListener(...args);
+  }
+
+}
+
+module.exports = {
+  ClientSocket
+};
+
+/***/ }),
+/* 16 */
+/***/ ((module) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  error,
+  info,
+  warn
+} = console;
+const log = {
+  error: error.bind(console, '⬡ wps:'),
+  info: info.bind(console, '⬡ wps:'),
+  refresh: 'Please refresh the page',
+  warn: warn.bind(console, '⬡ wps:')
+};
+
+const noop = () => {};
+
+const silent = {
+  error: noop,
+  info: noop,
+  warn: noop
+};
+
+module.exports = () => window.webpackPluginServe.silent ? silent : log;
+
+/***/ }),
+/* 17 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  error,
+  info,
+  refresh,
+  warn
+} = __webpack_require__(16)();
+
+let latest = true;
+
+const hmr = onFailure => {
+  return {
+    onUnaccepted(data) {
+      onFailure();
+      warn('Change in unaccepted module(s):\n', data);
+      warn(data);
+    },
+
+    onDeclined(data) {
+      onFailure();
+      warn('Change in declined module(s):\n', data);
+    },
+
+    onErrored(data) {
+      onFailure();
+      error('Error in module(s):\n', data);
+    }
+
+  };
+};
+
+const replace = async (buildHash, hash, refreshOnFailure) => {
+  const {
+    apply,
+    check,
+    status
+  } = module.hot;
+
+  if (hash) {
+    // eslint-disable-next-line no-undef
+    latest = hash.includes(buildHash);
+  }
+
+  if (!latest) {
+    const hmrStatus = status();
+
+    if (hmrStatus === 'abort' || hmrStatus === 'fail') {
+      warn(`An HMR update was triggered, but ${hmrStatus}ed. ${refresh}`);
+      return;
+    }
+
+    let modules;
+
+    try {
+      modules = await check(false);
+    } catch (e) {
+      // noop. this typically happens when a MultiCompiler has more than one compiler that includes
+      // this script, and an update happens with a hash that isn't part of the compiler/module this
+      // instance was loaded for.
+      return;
+    }
+
+    if (!modules) {
+      warn(`No modules found for replacement. ${refresh}`);
+      return;
+    }
+
+    modules = await apply(hmr(refreshOnFailure ? () => {
+      if (refreshOnFailure) {
+        // eslint-disable-next-line no-undef
+        location.reload();
+      }
+    } : () => {}));
+
+    if (modules) {
+      latest = true;
+      info(`Build ${hash.slice(0, 7)} replaced:\n`, modules);
+    }
+  }
+};
+
+module.exports = {
+  replace
+};
+
+/***/ }),
+/* 18 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell, Matheus Gonçalves da Silva
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  addCss,
+  addHtml
+} = __webpack_require__(19);
+
+const ns = 'wps-progress-minimal';
+const html = `
+<div id="${ns}" class="${ns}-hidden">
+  <div id="${ns}-bar"></div>
+</div>
+`;
+const css = `
+#${ns} {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100vw;
+  z-index: 2147483645;
+}
+
+#${ns}-bar {
+  width: 0%;
+  height: 4px;
+  background-color: rgb(186, 223, 172);
+}
+
+@keyframes ${ns}-fade {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.${ns}-disappear {
+  animation: ${ns}-fade .3s;
+  animation-fill-mode: forwards;
+  animation-delay: .5s;
+}
+
+.${ns}-hidden {
+  display: none;
+}
+`;
+let hideOnPageVisible = false;
+
+const update = percent => {
+  const bar = document.querySelector(`#${ns}-bar`);
+  bar.style.width = `${percent}%`;
+};
+
+const reset = wrapper => {
+  wrapper.classList.add(`${ns}-disappear`);
+};
+
+const init = (options, socket) => {
+  if (options.firstInstance) {
+    document.addEventListener('DOMContentLoaded', () => {
+      addCss(css);
+      addHtml(html);
+      const wrapper = document.querySelector(`#${ns}`);
+      wrapper.addEventListener('animationend', () => {
+        update(0);
+        wrapper.classList.add(`${ns}-hidden`);
+      });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && hideOnPageVisible) {
+        const wrapper = document.querySelector(`#${ns}`);
+        reset(wrapper);
+        hideOnPageVisible = false;
+      }
+    });
+  }
+
+  socket.addEventListener('message', message => {
+    const {
+      action,
+      data
+    } = JSON.parse(message.data);
+
+    if (action !== 'progress') {
+      return;
+    }
+
+    const percent = Math.floor(data.percent * 100);
+    const wrapper = document.querySelector(`#${ns}`);
+    wrapper.classList.remove(`${ns}-hidden`, `${ns}-disappear`);
+
+    if (data.percent === 1) {
+      if (document.hidden) {
+        hideOnPageVisible = true;
+      } else {
+        reset(wrapper);
+      }
+    } else {
+      hideOnPageVisible = false;
+    }
+
+    update(percent);
+  });
+};
+
+module.exports = {
+  init
+};
+
+/***/ }),
+/* 19 */
+/***/ ((module) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const addHtml = (html, parent) => {
+  const div = document.createElement('div');
+  const nodes = [];
+  div.innerHTML = html.trim();
+
+  while (div.firstChild) {
+    nodes.push((parent || document.body).appendChild(div.firstChild));
+  }
+
+  return nodes;
+};
+
+const addCss = css => {
+  const style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (css.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  } // append the stylesheet for the svg
+
+
+  document.head.appendChild(style);
+};
+
+const socketMessage = (socket, handler) => {
+  socket.addEventListener('message', message => {
+    const {
+      action,
+      data = {}
+    } = JSON.parse(message.data);
+    handler(action, data);
+  });
+};
+
+module.exports = {
+  addCss,
+  addHtml,
+  socketMessage
+};
+
+/***/ }),
+/* 20 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell, Matheus Gonçalves da Silva
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  addCss,
+  addHtml
+} = __webpack_require__(19);
+
+const ns = 'wps-progress';
+const css = `
+#${ns}{
+  width: 200px;
+  height: 200px;
+  position: fixed;
+  right: 5%;
+  top: 5%;
+  transition: opacity .25s ease-in-out;
+  z-index: 2147483645;
+}
+
+#${ns}-bg {
+  fill: #282d35;
+}
+
+#${ns}-fill {
+  fill: rgba(0, 0, 0, 0);
+  stroke: rgb(186, 223, 172);
+  stroke-dasharray: 219.99078369140625;
+  stroke-dashoffset: -219.99078369140625;
+  stroke-width: 10;
+  transform: rotate(90deg)translate(0px, -80px);
+}
+
+#${ns}-percent {
+  font-family: 'Open Sans';
+  font-size: 18px;
+  fill: #ffffff;
+}
+
+#${ns}-percent-value {
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+#${ns}-percent-super {
+  fill: #bdc3c7;
+  font-size: .45em;
+  baseline-shift: 10%;
+}
+
+.${ns}-noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+@keyframes ${ns}-fade {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+		-webkit-transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(0);
+		-webkit-transform: scale(0);
+	}
+}
+
+.${ns}-disappear {
+  animation: ${ns}-fade .3s;
+  animation-fill-mode:forwards;
+  animation-delay: .5s;
+}
+
+.${ns}-hidden {
+  display: none;
+}
+
+/* Put google web font at the end, or you'll see FOUC in Firefox */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+`;
+const html = `
+<svg id="${ns}" class="${ns}-noselect ${ns}-hidden" x="0px" y="0px" viewBox="0 0 80 80">
+  <circle id="${ns}-bg" cx="50%" cy="50%" r="35"></circle>
+  <path id="${ns}-fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
+  <text id="${ns}-percent" x="50%" y="51%"><tspan id="${ns}-percent-value">0</tspan><tspan id="${ns}-percent-super">%</tspan></text>
+</svg>
+`;
+let hideOnPageVisible = false;
+
+const update = percent => {
+  const max = -219.99078369140625;
+  const value = document.querySelector(`#${ns}-percent-value`);
+  const track = document.querySelector(`#${ns}-fill`);
+  const offset = (100 - percent) / 100 * max;
+  track.setAttribute('style', `stroke-dashoffset: ${offset}`);
+  value.innerHTML = percent.toString();
+};
+
+const reset = svg => {
+  svg.classList.add(`${ns}-disappear`);
+};
+
+const init = (options, socket) => {
+  if (options.firstInstance) {
+    document.addEventListener('DOMContentLoaded', () => {
+      addCss(css);
+      addHtml(html); // Reset progress to zero after disappear animation
+
+      const svg = document.querySelector(`#${ns}`);
+      svg.addEventListener('animationend', () => {
+        update(0);
+        svg.classList.add(`${ns}-hidden`);
+      });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && hideOnPageVisible) {
+        const svg = document.querySelector(`#${ns}`);
+        reset(svg);
+        hideOnPageVisible = false;
+      }
+    });
+  }
+
+  socket.addEventListener('message', message => {
+    const {
+      action,
+      data
+    } = JSON.parse(message.data);
+
+    if (action !== 'progress') {
+      return;
+    }
+
+    const percent = Math.floor(data.percent * 100);
+    const svg = document.querySelector(`#${ns}`);
+
+    if (!svg) {
+      return;
+    } // we can safely call this even if it doesn't have the class
+
+
+    svg.classList.remove(`${ns}-disappear`, `${ns}-hidden`);
+
+    if (data.percent === 1) {
+      if (document.hidden) {
+        hideOnPageVisible = true;
+      } else {
+        reset(svg);
+      }
+    } else {
+      hideOnPageVisible = false;
+    }
+
+    update(percent);
+  });
+};
+
+module.exports = {
+  init
+};
+
+/***/ }),
+/* 21 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+  Copyright © 2018 Andrew Powell
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of this Source Code Form.
+*/
+const {
+  addCss,
+  addHtml,
+  socketMessage
+} = __webpack_require__(19);
+
+const ns = 'wps-status';
+const css = `
+#${ns} {
+  background: #282d35;
+  border-radius: 0.6em;
+  display: flex;
+  flex-direction: column;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-size: 10px;
+  height: 90%;
+  min-height: 20em;
+  left: 50%;
+  opacity: 1;
+  overflow: hidden;
+  padding-bottom: 3em;
+  position: absolute;
+  top: 2rem;
+  transform: translateX(-50%);
+  transition: opacity .25s ease-in-out;
+  width: 95%;
+  z-index: 2147483645;
+}
+
+@keyframes ${ns}-hidden-display {
+	0% {
+		opacity: 1;
+	}
+	99% {
+		display: inline-flex;
+		opacity: 0;
+	}
+	100% {
+		display: none;
+		opacity: 0;
+	}
+}
+
+#${ns}.${ns}-hidden {
+  animation: ${ns}-hidden-display .3s;
+  animation-fill-mode:forwards;
+  display: none;
+}
+
+#${ns}.${ns}-min {
+  animation: minimize 10s;
+  bottom: 2em;
+  cursor: pointer;
+  height: 6em;
+  left: auto;
+  min-height: 6em;
+  padding-bottom: 0;
+  position: absolute;
+  right: 2em;
+  top: auto;
+  transform: none;
+  width: 6em;
+}
+
+#${ns}.${ns}-min #${ns}-beacon {
+  display: block;
+}
+
+#${ns}-title {
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: normal;
+  margin: 0;
+  padding: 0.6em 0;
+  text-align: center;
+  width: 100%;
+}
+
+#${ns}.${ns}-min #${ns}-title {
+  display: none;
+}
+
+#${ns}-title-errors {
+  color: #ff5f58;
+  font-style: normal;
+  padding-left: 1em;
+}
+
+#${ns}-title-warnings {
+  color: #ffbd2e;
+  font-style: normal;
+  padding-left: 1em;
+}
+
+#${ns}-problems {
+  overflow-y: auto;
+  padding: 1em 2em;
+}
+
+#${ns}-problems pre {
+  color: #ddd;
+  background: #282d35;
+  display: block;
+  font-size: 1.3em;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  white-space: pre-wrap;
+}
+
+#${ns}-problems pre em {
+  background: #ff5f58;
+  border-radius: 0.3em;
+  color: #641e16;
+  font-style: normal;
+  line-height: 3em;
+  margin-right: 0.4em;
+  padding: 0.1em 0.4em;
+  text-transform: uppercase;
+}
+
+pre#${ns}-warnings em {
+  background: #ffbd2e;
+  color: #3e2723;
+}
+
+pre#${ns}-success {
+  display: none;
+  text-align: center;
+}
+
+pre#${ns}-success em {
+  background: #7fb900;
+  color: #004d40;
+}
+
+#${ns}-problems.${ns}-success #${ns}-success {
+  display: block;
+}
+
+#${ns}.${ns}-min #${ns}-problems {
+  display: none;
+}
+
+#${ns}-nav {
+  opacity: 0.5;
+  padding: 1.2em;
+  position: absolute;
+}
+
+#${ns}.${ns}-min #${ns}-nav {
+  display: none;
+}
+
+#${ns}-nav:hover {
+  opacity: 1;
+}
+
+#${ns}-nav div {
+  background: #ff5f58;
+  border-radius: 1.2em;
+  cursor: pointer;
+  display: inline-block;
+  height: 1.2em;
+  position: relative;
+  width: 1.2em;
+}
+
+div#${ns}-min {
+  background: #ffbd2e;
+  margin-left: 0.8em;
+}
+
+#${ns}-beacon {
+  border-radius: 3em;
+  display: none;
+  font-size: 10px;
+  height: 3em;
+  margin: 1.6em auto;
+  position: relative;
+  width: 3em;
+}
+
+#${ns}-beacon:before, #${ns}-beacon:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(127,185,0, 0.2);
+  border-radius: 3em;
+  opacity: 0;
+}
+
+#${ns}-beacon:before {
+  animation: ${ns}-pulse 3s infinite linear;
+  transform: scale(1);
+}
+
+#${ns}-beacon:after {
+  animation: ${ns}-pulse 3s 2s infinite linear;
+}
+
+
+@keyframes ${ns}-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  33% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
+#${ns}-beacon mark {
+  background: rgba(127, 185, 0, 1);
+  border-radius: 100% 100%;
+  height: 1em;
+  left: 1em;
+  position: absolute;
+  top: 1em;
+  width: 1em;
+}
+
+#${ns}-beacon.${ns}-error mark {
+  background: #ff5f58;
+}
+
+#${ns}-beacon.${ns}-error:before, #${ns}-beacon.error:after {
+  background: rgba(255, 95, 88, 0.2);
+}
+
+#${ns}-beacon.${ns}-warning mark {
+  background: #ffbd2e;
+}
+
+#${ns}-beacon.${ns}-warning:before, #${ns}-beacon.warning:after {
+  background: rgba(255, 189, 46, 0.2);
+}
+
+/* Put google web font at the end, or you'll see FOUC in Firefox */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+`;
+const html = `
+<aside id="${ns}" class="${ns}-hidden" title="build status">
+  <figure id="${ns}-beacon">
+    <mark/>
+  </figure>
+  <nav id="${ns}-nav">
+    <div id="${ns}-close" title="close"></div>
+    <div id="${ns}-min" title="minmize"></div>
+  </nav>
+  <h1 id="${ns}-title">
+    build status
+    <em id="${ns}-title-errors"></em>
+    <em id="${ns}-title-warnings"></em>
+  </h1>
+  <article id="${ns}-problems">
+    <pre id="${ns}-success"><em>Build Successful</em></pre>
+    <pre id="${ns}-errors"></pre>
+    <pre id="${ns}-warnings"></pre>
+  </article>
+</aside>
+`;
+
+const init = (options, socket) => {
+  const hidden = `${ns}-hidden`;
+  let hasProblems = false;
+  let aside;
+  let beacon;
+  let problems;
+  let preErrors;
+  let preWarnings;
+  let titleErrors;
+  let titleWarnings;
+
+  const reset = () => {
+    preErrors.innerHTML = '';
+    preWarnings.innerHTML = '';
+    problems.classList.remove(`${ns}-success`);
+    beacon.className = '';
+    titleErrors.innerText = '';
+    titleWarnings.innerText = '';
+  };
+
+  const addErrors = errors => {
+    if (errors.length) {
+      problems.classList.remove(`${ns}-success`);
+      beacon.classList.add(`${ns}-error`);
+
+      for (const error of errors) {
+        const markup = `<div><em>Error</em> in ${error}</div>`;
+        addHtml(markup, preErrors);
+      }
+
+      titleErrors.innerText = `${errors.length} Error(s)`;
+    } else {
+      titleErrors.innerText = '';
+    }
+
+    aside.classList.remove(hidden);
+  };
+
+  const addWarnings = warnings => {
+    if (warnings.length) {
+      problems.classList.remove(`${ns}-success`);
+
+      if (!beacon.classList.contains(`${ns}-error`)) {
+        beacon.classList.add(`${ns}-warning`);
+      }
+
+      for (const warning of warnings) {
+        const markup = `<div><em>Warning</em> in ${warning}</div>`;
+        addHtml(markup, preWarnings);
+      }
+
+      titleWarnings.innerText = `${warnings.length} Warning(s)`;
+    } else {
+      titleWarnings.innerText = '';
+    }
+
+    aside.classList.remove(hidden);
+  };
+
+  if (options.firstInstance) {
+    document.addEventListener('DOMContentLoaded', () => {
+      addCss(css);
+      [aside] = addHtml(html);
+      beacon = document.querySelector(`#${ns}-beacon`);
+      problems = document.querySelector(`#${ns}-problems`);
+      preErrors = document.querySelector(`#${ns}-errors`);
+      preWarnings = document.querySelector(`#${ns}-warnings`);
+      titleErrors = document.querySelector(`#${ns}-title-errors`);
+      titleWarnings = document.querySelector(`#${ns}-title-warnings`);
+      const close = document.querySelector(`#${ns}-close`);
+      const min = document.querySelector(`#${ns}-min`);
+      aside.addEventListener('click', () => {
+        aside.classList.remove(`${ns}-min`);
+      });
+      close.addEventListener('click', () => {
+        aside.classList.add(`${ns}-hidden`);
+      });
+      min.addEventListener('click', e => {
+        aside.classList.add(`${ns}-min`);
+        e.stopImmediatePropagation();
+      });
+    });
+  }
+
+  socketMessage(socket, (action, data) => {
+    if (!aside) {
+      return;
+    }
+
+    const {
+      compilers
+    } = window.webpackPluginServe;
+
+    switch (action) {
+      case 'build':
+        // clear errors and warnings when a new build begins
+        reset();
+        break;
+
+      case 'problems':
+        addErrors(data.errors);
+        addWarnings(data.warnings);
+        aside.classList.remove(hidden);
+        hasProblems = data.errors.length || data.warnings.length;
+        break;
+
+      case 'replace':
+        // if there's a compiler that isn't done yet, hold off and let it run the show
+        for (const compilerName of Object.keys(compilers)) {
+          if (!compilers[compilerName]) {
+            return;
+          }
+        }
+
+        if (hasProblems && !preErrors.children.length && !preWarnings.children.length) {
+          reset();
+          hasProblems = false;
+          problems.classList.add(`${ns}-success`);
+          aside.classList.remove(hidden);
+          setTimeout(() => aside.classList.add(hidden), 3e3);
+        }
+
+        break;
+
+      default:
+    }
+  });
+};
+
+module.exports = {
+  init
+};
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -11938,7 +11917,7 @@ module.exports = {
 /******/ 		// This function allow to reference all chunks
 /******/ 		__webpack_require__.hu = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "797db9e-" + chunkId + "-wps-hmr.js";
+/******/ 			return "4f5ff01-" + chunkId + "-wps-hmr.js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -11953,12 +11932,12 @@ module.exports = {
 /******/ 	
 /******/ 	/* webpack/runtime/get update manifest filename */
 /******/ 	(() => {
-/******/ 		__webpack_require__.hmrF = () => ("main-797db9e-wps-hmr.json");
+/******/ 		__webpack_require__.hmrF = () => ("main-4f5ff01-wps-hmr.json");
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("ea762c18d88b8a0ca216")
+/******/ 		__webpack_require__.h = () => ("840f6cdd83c384c5ff66")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -13031,7 +13010,7 @@ module.exports = {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	__webpack_require__(0);
-/******/ 	var __webpack_exports__ = __webpack_require__(8);
+/******/ 	var __webpack_exports__ = __webpack_require__(13);
 /******/ 	
 /******/ })()
 ;

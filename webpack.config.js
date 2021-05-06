@@ -53,7 +53,7 @@ module.exports = {
       },
       {
         test:/\.ico$/,
-        loader:"file-loader?name=[name].[ext]",
+        use:["file-loader?name=[name].[ext]"],
       }
     ]
     // js, jsx, html, css 파일 번들링 관련 설정입니다
